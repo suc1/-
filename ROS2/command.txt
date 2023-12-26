@@ -1,0 +1,92 @@
+1. Linux command
+nautilus
+
+2. ROS setup
+source /opt/ros/iron/setup.bash
+echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
+echo "export _colcon_cd_root=/opt/ros/iron/" >> ~/.bashrc
+
+3. ROS command
+rqt
+rqt_graph
+rqt_console
+ros2 doctor --report
+ros2 component types
+ros2 launch launch_tutorial example_substitutions_launch.py --show-args
+
+ros2 run tf2_tools view_frames
+ros2 run tf2_ros tf2_echo [source_frame] [target_frame]
+ros2 run tf2_ros tf2_monitor turtle2 turtle1
+
+ros2 run tf2_ros static_transform_publisher --x x --y y --z z --yaw yaw --pitch pitch --roll roll --frame-id frame_id --child-frame-id child_frame_id
+ros2 run tf2_ros static_transform_publisher --x x --y y --z z --qx qx --qy qy --qz qz --qw qw --frame-id frame_id --child-frame-id child_frame_id
+
+ros2 run turtlesim turtle_teleop_key
+
+4. ROS Build & Install
+sudo apt-get remove ros-$(rosversion -d)-turtlesim
+https://github.com/ros/rosdistro/blob/master/iron/distribution.yaml
+https://github.com/ros/rosdistro/blob/master/rosdep/base.yaml
+https://github.com/ros/rosdistro/blob/master/rosdep/python.yaml
+
+ros2 pkg create --build-type ament_cmake <package_name>
+ros2 pkg create --build-type ament_cmake --node-name my_node my_package --license Apache-2.0
+ros2 pkg create --build-type ament_cmake cpp_srvcli --dependencies rclcpp example_interfaces
+
+rosdep install -i --from-path src --rosdistro iron -y
+
+ros2 interface show tutorial_interfaces/msg/Num
+
+colcon build --symlink-install --event-handlers console_direct+
+colcon build --event-handlers console_direct+
+colcon build --packages-select my_package
+
+colcon test
+
+source install/setup.bash
+source install/local_setup.bash
+. install/setup.bash
+
+colcon_cd some_ros_package
+
+np.unique(a, return_counts=True)
+
+
+array([[ 1,  2,  3,  4],
+       [ 5,  6,  7,  8],
+       [ 9, 10, 11, 12]])
+	   
+	   4,   3,  2, 1
+	   8,   7,  6, 5
+	   12, 11, 10, 9
+	   
+	   4,   3,  2, 1
+	   8,   7,  6, 5
+	   12, 11, 10, 9
+	   
+怎么在`QGridLayout`增加一行，跨两列?
+
+
+```
+pt0 = np.array( [0, 1] )
+pt1 = np.array( [2, 3] )
+pt2 = np.array( [4, 5] )
+corner = np.ndarray([pt0, pt1, pt2, pt2])
+```
+has error:
+TypeError: 'tuple' object cannot be interpreted as an integer
+
+pt0 = np.array( [0, 1, 2, 3] )
+pt0.reshape(2, 2)
+
+
+pt = [252.84201, 213.57774, 389.31738, 202.09875, 260.49585, 298.24887, 260.49585, 298.24887]
+cn = np.array(pt)
+cn.reshape(4, 2)
+
+
+简单方法:
+1. Install PyCharm
+2. New Project/Create New Conda env: Location=`d:\Users\SuC\AppData\Local\anaconda3\envs\pythonProject`, CondaExecutable=`D:\Users\SuC\AppData\Local\anaconda3\_conda.exe`
+3. `conda activate pythonProject`
+4. `conda install pytorch torchvision torchaudio cpuonly -c pytorch`

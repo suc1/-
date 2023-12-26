@@ -1,0 +1,48 @@
+1. Lifecycle Nodes: on_configure(), on_activate()
+	1. ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+	2. ros2 run turtlebot3_teleop teleop_keyboard
+	3. ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
+	4. ros2 run nav2_map_server map_saver_cli -f maps/map1
+	5. sudo apt install ros-humble-rmw-cyclonedds-cpp
+	6. export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+	7. robot_model_type: "nav2_amcl::DifferentialMotionModel"
+	8. nav
+	9. ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=maps/map1.yaml
+	
+	
+2. Navigation servers:
+	1. 行为树(BT: Behavior Trees), 有限状态机(FSM: Finite State Machine )
+	2. Controllers = local planners in ROS 1
+	3. Recovery behaviors: 动态障碍物或控制不良而被卡住
+	4. Smoothers: 减少路径粗糙度和平滑突然旋转，但也用于增加与障碍物和高成本区域的距离，因为平滑器可以访问全局代价
+	5. map -> odom -> base_link -> [sensor frames]
+	6.    amcl	  odometry
+	7. Nav2 Academic Overview https://youtu.be/QB7lOKp3ZDQ
+	8. robot types: differential差动, omnidirectional全向, ackermann阿克曼, circular圆, arbitrary shape任意形状
+
+3. xacro
+	1. xacro:macro定义宏, xacro:pr2_arm调用pr2_arm宏, xacro:property定义变量, 条件表达式xacro:if/xacro:unless
+	2. xacro表达式${}, rospack命令$(), 
+	3. 7. Macros
+	4. *origin表明 origin 是一个块参数而不是简单的文本参数
+	5. **content允许插入任意数量的元素
+	6. 宏可能包含其他宏。首先扩展外部宏，然后扩展内部宏
+	7. xacro:include: 包括其他 xacro 文件
+	8. YAML 支持
+	9. xacro:element: xml node; xacro:attribute
+	10. 处理次序
+	11. check_urdf <(xacro model.xacro)
+	
+4. First-Time Robot Setup Guide
+	1. URDF: 使用 robots_state_publisher 而不是 static_transform_publisher
+	2. Earth -> Map ----> Odom ----------------> base_link
+	3.              AMCL       robot_localization
+	4. base_footprint: 机器人投影到地面的中心
+
+5. General Tutorials
+	1. ros2 launch nav2_bringup bringup_launch.py use_sim_time:=False autostart:=False map:=/path/to/your-map.yaml
+	2. ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/rviz/nav2_default_view.rviz
+	3. sudo apt install ros-<ros2-distro>-slam-toolbox
+	4. (SLAM) Navigating While Mapping
+	5. 
+	
